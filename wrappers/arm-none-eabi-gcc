@@ -1,0 +1,35 @@
+#!/usr/bin/python3 -B
+
+import os
+import sys
+
+_C_EXT = [
+    '.c',
+    '.s',
+]
+_CPP_ONLY_FLAGS = [
+    '-Wno-register',
+    '-Wno-sized-deallocation',
+]
+
+
+def go(exec, args):
+  os.execv(exec, [exec] + args)
+
+
+def main():
+  args = sys.argv[1:]
+  with open('asdf.txt', 'w') as f:
+    f.write(str(args))
+    f.write('\n')
+
+    if [x for x in args if x[-2:].lower() in _C_EXT]:
+      f.write('IS C')
+      go('external/gcc_arm_none_eabi/bin/arm-none-eabi-gcc',
+         [x for x in args if x not in _CPP_ONLY_FLAGS])
+    else:
+      go('external/gcc_arm_none_eabi/bin/arm-none-eabi-g++', args)
+
+
+if __name__ == '__main__':
+  main()

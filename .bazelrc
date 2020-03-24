@@ -1,0 +1,1 @@
+build --verbose_failures --incompatible_enable_cc_toolchain_resolution --platforms=//platforms:stm32g474
