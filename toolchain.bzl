@@ -324,7 +324,8 @@ _BUILD_CONFIG = [
         name = "dbg",
         flag_sets = [
             flag_set(
-                actions = C_CPP_COMPILE_ACTIONS,
+                # actions = C_CPP_COMPILE_ACTIONS,
+                actions = ALL_COMPILE_ACTIONS,
                 flag_groups = [flag_group(flags = [
                     "-O0",
                     "-g3",
