@@ -239,6 +239,16 @@ _BASE_FEATURES = [
             ),
         ],
     ),
+    # Include stdint
+    feature(
+        name = "stdint",
+        flag_sets = [
+            flag_set(
+                actions = ALL_CPP_COMPILE_ACTIONS,
+                flag_groups = [flag_group(flags = ["-includestdint.h"])],
+            ),
+        ],
+    ),
 ]
 
 _ARM_COMMON_FEATURES = [
@@ -317,6 +327,7 @@ _BUILD_CONFIG = [
             "thumb",
             "float_abi",
             "stm32g4",
+            "stdint",
         ],
     ),
     # Build dbg
@@ -346,7 +357,8 @@ _BUILD_CONFIG = [
                     flag_group(
                         flags = [
                             "-g",
-                            "-Os",
+                            # "-Os",
+                            "-O3",
                             "-ffunction-sections",
                             "-fdata-sections",
                         ],
