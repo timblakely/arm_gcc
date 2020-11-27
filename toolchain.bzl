@@ -251,6 +251,43 @@ _BASE_FEATURES = [
     ),
 ]
 
+_OPTIONAL_FEATURES = [
+    # Optionally make all warnings errors
+    feature(
+        name = "warnings_are_errors",
+        flag_sets = [
+            flag_set(
+                actions = C_CPP_COMPILE_ACTIONS,
+                flag_groups = [
+                    flag_group(
+                        flags = [
+                            "-Werror",  # Make warnings errors.
+                        ],
+                    ),
+                ],
+            ),
+        ],
+        enabled = False,
+    ),
+    # Optionally dump memory stats
+    feature(
+        name = "dump_memory_stats",
+        flag_sets = [
+            flag_set(
+                actions = ALL_LINK_ACTIONS,
+                flag_groups = [
+                    flag_group(
+                        flags = [
+                            "-Wl,--print-memory-usage",
+                        ],
+                    ),
+                ],
+            ),
+        ],
+        enabled = False,
+    ),
+]
+
 _ARM_COMMON_FEATURES = [
     # Set up stdlib
     feature(
@@ -377,7 +414,7 @@ _BUILD_CONFIG = [
 ]
 
 def _impl(ctx):
-    features = (_BASE_FEATURES + _ARM_COMMON_FEATURES +
+    features = (_BASE_FEATURES + _OPTIONAL_FEATURES + _ARM_COMMON_FEATURES +
                 _STM32G4_FEATURES + _BUILD_CONFIG)
 
     toolchain_identifier = "local_linux"
