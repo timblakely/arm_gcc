@@ -291,6 +291,17 @@ _OPTIONAL_FEATURES = [
 _ARM_COMMON_FEATURES = [
     # Set up stdlib
     feature(
+        name = "newlib.nano",
+        flag_sets = [
+            flag_set(
+                actions = ALL_COMPILE_ACTIONS + ALL_LINK_ACTIONS,
+                flag_groups = [flag_group(flags = [
+                    "--specs=nano.specs",
+                ])],
+            ),
+        ],
+    ),
+    feature(
         name = "stdlib",
         flag_sets = [
             flag_set(
